@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout - Luxury Feeling Collection</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Newsreader Font (from Theme 3) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#e6b319',
+            'brand-dark': '#c49815',
+            'luxury-navy': '#1a2433',
+            'luxury-bg': '#fcfcfc',
+          },
+          fontFamily: {
+            serif: ['Newsreader', 'serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="typography">
+    body {
+      font-family: 'Newsreader', serif;
+      background-color: #fcfcfc;
+      color: #1a2433;
+    }
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+  </style>
+<style data-purpose="custom-ui">
+    .form-input-custom {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      width: 100%;
+      font-size: 0.95rem;
+    }
+    .form-input-custom:focus {
+      border-color: #e6b319;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(230, 179, 25, 0.1);
+    }
+    .selection-card {
+      border: 1.5px solid #e2e8f0;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .selection-card.active {
+      border-color: #e6b319;
+      background-color: rgba(230, 179, 25, 0.03);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen pb-32">
+<!-- BEGIN: Navigation Header -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between">
+<button aria-label="Go Back" class="p-1">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<h1 class="text-lg font-semibold uppercase tracking-widest text-brand">Checkout</h1>
+<div class="w-6"></div> <!-- Spacer for centering -->
+</header>
+<!-- END: Navigation Header -->
+<main class="max-w-md mx-auto px-6 py-8">
+<!-- BEGIN: Order Summary Section (Collapsed-Style) -->
+<section class="mb-10 bg-gray-50 p-4 rounded-custom border border-gray-100" data-purpose="order-summary">
+<div class="flex justify-between items-center mb-2">
+<span class="text-gray-600 font-medium">Order Summary</span>
+<button class="text-brand font-semibold text-sm">View Details</button>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 bg-white border border-gray-200 rounded overflow-hidden">
+<img alt="Product Thumbnail" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwcESiqaO0TkSmm5Qusoew2taIE91gHtE-dx7Aq1tsGl_LjNWwUm_h4jYUI2se18oYGFd50TAThI86uSe23EwNlRzRk8bUFLJ7Eckfe9Oz5MUs9toS0nqtKr4gdbFp-rB2S0kmlXKKO4lC6hR6dLyJbt9qOSt7SxFLBXDh-V8Sxo8OIf9LGw_B5xjdRtKe3U8gVRQflRPulGvEhMQUGuWV027Ybusoe0IPT3SbqYu7IMPSws4RvhBc93IAaoAdFOZFeh_YtaLbWqR1"/>
+</div>
+<div>
+<p class="font-semibold text-sm">Premium Silk Bedding Set</p>
+<p class="text-xs text-gray-500">Champagne Gold • Queen</p>
+<p class="text-brand font-bold mt-1">$499.00</p>
+</div>
+</div>
+</section>
+<!-- END: Order Summary Section -->
+<!-- BEGIN: Shipping Details Form -->
+<section class="mb-10" data-purpose="shipping-details">
+<h2 class="text-xl mb-6 flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-luxury-navy text-white text-xs flex items-center justify-center italic">1</span>
+        Shipping Details
+      </h2>
+<div class="space-y-4">
+<div>
+<label class="block text-xs uppercase tracking-wider text-gray-500 mb-1 ml-1">Full Name</label>
+<input class="form-input-custom" placeholder="e.g. Julianne Smith" type="text"/>
+</div>
+<div>
+<label class="block text-xs uppercase tracking-wider text-gray-500 mb-1 ml-1">Street Address</label>
+<input class="form-input-custom" placeholder="123 Luxury Lane" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs uppercase tracking-wider text-gray-500 mb-1 ml-1">City</label>
+<input class="form-input-custom" placeholder="New York" type="text"/>
+</div>
+<div>
+<label class="block text-xs uppercase tracking-wider text-gray-500 mb-1 ml-1">Postal Code</label>
+<input class="form-input-custom" placeholder="10001" type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Shipping Details Form -->
+<!-- BEGIN: Shipping Method -->
+<section class="mb-10" data-purpose="shipping-method">
+<h2 class="text-xl mb-6 flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-luxury-navy text-white text-xs flex items-center justify-center italic">2</span>
+        Shipping Method
+      </h2>
+<div class="grid grid-cols-1 gap-3">
+<label class="selection-card active p-4 rounded-custom flex justify-between items-center">
+<div class="flex items-center gap-3">
+<input checked="" class="text-brand focus:ring-brand" name="shipping" type="radio"/>
+<div>
+<p class="font-semibold text-sm">Standard Delivery</p>
+<p class="text-xs text-gray-500">3-5 business days</p>
+</div>
+</div>
+<span class="text-sm font-bold text-gray-400">FREE</span>
+</label>
+<label class="selection-card p-4 rounded-custom flex justify-between items-center">
+<div class="flex items-center gap-3">
+<input class="text-brand focus:ring-brand" name="shipping" type="radio"/>
+<div>
+<p class="font-semibold text-sm">Express Shipping</p>
+<p class="text-xs text-gray-500">Next day delivery</p>
+</div>
+</div>
+<span class="text-sm font-bold text-luxury-navy">$25.00</span>
+</label>
+</div>
+</section>
+<!-- END: Shipping Method -->
+<!-- BEGIN: Payment Options -->
+<section class="mb-10" data-purpose="payment-options">
+<h2 class="text-xl mb-6 flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-luxury-navy text-white text-xs flex items-center justify-center italic">3</span>
+        Payment Method
+      </h2>
+<div class="space-y-3">
+<div class="selection-card p-4 rounded-custom flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-6 bg-blue-600 rounded flex items-center justify-center">
+<span class="text-[8px] text-white font-bold italic">FLUTTERWAVE</span>
+</div>
+<p class="text-sm font-medium">Pay with Flutterwave</p>
+</div>
+<div class="w-4 h-4 rounded-full border border-gray-300"></div>
+</div>
+<div class="selection-card p-4 rounded-custom flex items-center justify-between border-brand bg-brand/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-6 bg-blue-800 rounded flex items-center justify-center">
+<span class="text-[8px] text-white font-bold italic uppercase">PayPal</span>
+</div>
+<p class="text-sm font-medium">Pay via PayPal</p>
+</div>
+<div class="w-4 h-4 rounded-full border-4 border-brand"></div>
+</div>
+</div>
+</section>
+<!-- END: Payment Options -->
+</main>
+<!-- BEGIN: Sticky Bottom Checkout Action -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-6 z-50">
+<div class="max-w-md mx-auto">
+<div class="flex justify-between items-center mb-4">
+<span class="text-gray-500 text-sm">Total Amount</span>
+<span class="text-2xl font-bold text-luxury-navy">$499.00</span>
+</div>
+<button class="w-full bg-brand hover:bg-brand-dark text-luxury-navy font-bold py-4 rounded-custom shadow-lg transition-colors flex items-center justify-center gap-2">
+        Complete Purchase
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<p class="text-[10px] text-center text-gray-400 mt-4 uppercase tracking-widest">Secure encrypted checkout by Shopify</p>
+</div>
+</footer>
+<!-- END: Sticky Bottom Checkout Action -->
+</body></html>

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<section class="py-12 px-4 max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+        <h1 class="font-display text-3xl md:text-4xl font-medium mb-4">Search <span class="italic text-primary">Collection</span></h1>
+        <p class="text-sm opacity-60">Find your perfect luxury textile</p>
+    </div>
+    
+    <form method="get" action="{% url 'core:search' %}" class="mb-12">
+        <div class="relative">
+            <input type="text" 
+                   name="q" 
+                   value="{{ query|default:'' }}"
+                   placeholder="Search for bedding, curtains, bath..." 
+                   class="w-full bg-white dark:bg-stone-900 border border-primary/20 rounded-none px-6 py-5 text-lg placeholder:opacity-40 focus:outline-none focus:border-primary pr-14"
+                   autofocus>
+            <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-primary">
+                <span class="material-symbols-outlined text-2xl">search</span>
+            </button>
+        </div>
+    </form>
+
+    {% if query %}
+    <div class="mb-8">
+        <p class="text-sm opacity-60">
+            {% if products %}
+            Found {{ products|length }} result{% if products|length != 1 %}s{% endif %} for "<span class="text-primary">{{ query }}</span>"
+            {% else %}
+            No results found for "<span class="text-primary">{{ query }}</span>"
+            {% endif %}
+        </p>
+    </div>
+
+    {% if products %}
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        {% for product in products %}
+        <a href="{% url 'shop:product_detail' product.slug %}" class="group no-underline text-inherit">
+            <div class="relative aspect-square mb-4 overflow-hidden bg-stone-100">
+                <img alt="{{ product.name }}" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     src="{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80{% endif %}"/>
+                {% if product.is_new %}
+                <span class="absolute top-3 left-3 bg-primary text-background-dark text-[10px] uppercase tracking-widest px-3 py-1 font-bold">New</span>
+                {% endif %}
+            </div>
+            <h3 class="text-sm font-medium">{{ product.name }}</h3>
+            <p class="text-xs opacity-50 mb-1">{{ product.category.name }}</p>
+            <p class="text-sm font-bold">${{ product.price }}</p>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+        <span class="material-symbols-outlined text-6xl opacity-20 mb-4">search_off</span>
+        <p class="opacity-60 mb-4">We couldn't find what you're looking for.</p>
+        <p class="text-sm opacity-40 mb-8">Try searching for something else or browse our categories below.</p>
+        <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-2 bg-primary text-background-dark px-8 py-4 text-xs uppercase tracking-widest no-underline">
+            Browse All Products
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+    {% endif %}
+    {% else %}
+    <!-- Popular searches -->
+    <div class="text-center">
+        <p class="text-xs uppercase tracking-widest opacity-40 mb-6">Popular Searches</p>
+        <div class="flex flex-wrap justify-center gap-3">
+            <a href="{% url 'core:search' %}?q=silk" class="px-5 py-2 border border-primary/20 text-sm hover:bg-primary hover:text-background-dark transition-colors no-underline text-inherit">Silk</a>
+            <a href="{% url 'core:search' %}?q=linen" class="px-5 py-2 border border-primary/20 text-sm hover:bg-primary hover:text-background-dark transition-colors no-underline text-inherit">Linen</a>
+            <a href="{% url 'core:search' %}?q=cashmere" class="px-5 py-2 border border-primary/20 text-sm hover:bg-primary hover:text-background-dark transition-colors no-underline text-inherit">Cashmere</a>
+            <a href="{% url 'core:search' %}?q=egyptian cotton" class="px-5 py-2 border border-primary/20 text-sm hover:bg-primary hover:text-background-dark transition-colors no-underline text-inherit">Egyptian Cotton</a>
+            <a href="{% url 'core:search' %}?q=velvet" class="px-5 py-2 border border-primary/20 text-sm hover:bg-primary hover:text-background-dark transition-colors no-underline text-inherit">Velvet</a>
+        </div>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

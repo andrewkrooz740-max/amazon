@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if category %}{{ category.name }}{% else %}Shop All{% endif %}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-12 px-4 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+        <div>
+            <nav class="text-xs uppercase tracking-widest opacity-50 mb-4">
+                <a href="{% url 'core:home' %}" class="hover:text-primary no-underline text-inherit">Home</a>
+                <span class="mx-2">/</span>
+                {% if category %}
+                <a href="{% url 'shop:product_list' %}" class="hover:text-primary no-underline text-inherit">Shop</a>
+                <span class="mx-2">/</span>
+                <span class="text-primary">{{ category.name }}</span>
+                {% else %}
+                <span class="text-primary">Shop All</span>
+                {% endif %}
+            </nav>
+            <h1 class="font-display text-3xl md:text-4xl font-medium">
+                {% if category %}
+                {{ category.name }} <span class="italic text-primary">Collection</span>
+                {% else %}
+                Shop <span class="italic text-primary">All</span>
+                {% endif %}
+            </h1>
+            <p class="text-sm opacity-60 mt-2">{{ products|length }} Products</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <select class="bg-transparent border border-primary/20 px-4 py-2 text-sm focus:outline-none focus:border-primary" 
+                    onchange="window.location.href=this.value">
+                <option value="{% url 'shop:product_list' %}{% if category %}{{ category.slug }}/{% endif %}">Sort by: Featured</option>
+                <option value="?sort=price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                <option value="?sort=price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                <option value="?sort=newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Category Filter Pills -->
+    <div class="flex gap-3 overflow-x-auto pb-4 no-scrollbar mb-8">
+        <a href="{% url 'shop:product_list' %}" 
+           class="flex-shrink-0 px-5 py-2 text-xs uppercase tracking-widest transition-colors no-underline {% if not category %}bg-primary text-background-dark{% else %}border border-primary/20 text-inherit hover:bg-primary hover:text-background-dark{% endif %}">
+            All
+        </a>
+        {% for cat in all_categories %}
+        <a href="{% url 'shop:product_list_by_category' cat.slug %}" 
+           class="flex-shrink-0 px-5 py-2 text-xs uppercase tracking-widest transition-colors no-underline {% if category.slug == cat.slug %}bg-primary text-background-dark{% else %}border border-primary/20 text-inherit hover:bg-primary hover:text-background-dark{% endif %}">
+            {{ cat.name }}
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Product Grid -->
+<section class="px-4 pb-24 max-w-7xl mx-auto">
+    {% if products %}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for product in products %}
+        <a href="{% url 'shop:product_detail' product.slug %}" class="group no-underline text-inherit">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden bg-stone-100">
+                <img alt="{{ product.name }}" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     src="{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80{% endif %}"/>
+                {% if product.is_new %}
+                <span class="absolute top-3 left-3 bg-primary text-background-dark text-[10px] uppercase tracking-widest px-3 py-1 font-bold">New</span>
+                {% endif %}
+                {% if product.is_bestseller %}
+                <span class="absolute top-3 right-3 bg-background-dark text-white text-[10px] uppercase tracking-widest px-2 py-1">Bestseller</span>
+                {% endif %}
+                <!-- Quick Add Button -->
+                <form method="post" action="{% url 'cart:cart_add' product.id %}" class="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="override" value="False">
+                    <button type="submit" class="w-full bg-background-dark/90 text-white py-3 text-xs uppercase tracking-widest hover:bg-primary hover:text-background-dark transition-colors">
+                        Quick Add
+                    </button>
+                </form>
+            </div>
+            <h3 class="text-sm font-medium truncate">{{ product.name }}</h3>
+            <p class="text-xs opacity-50 mb-1">{{ product.category.name }}</p>
+            <p class="text-sm font-bold">${{ product.price }}</p>
+            {% if product.colors.exists %}
+            <div class="flex gap-1 mt-2">
+                {% for color in product.colors.all %}
+                <span class="w-4 h-4 rounded-full border border-primary/20" style="background-color: {{ color.hex_code }}" title="{{ color.name }}"></span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16">
+        <span class="material-symbols-outlined text-6xl opacity-20 mb-4">inventory_2</span>
+        <p class="opacity-60 mb-4">No products found in this category.</p>
+        <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-2 bg-primary text-background-dark px-8 py-4 text-xs uppercase tracking-widest no-underline">
+            Browse All Products
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Category Description -->
+{% if category and category.description %}
+<section class="py-16 px-4 bg-stone-100 dark:bg-stone-900/30">
+    <div class="max-w-3xl mx-auto text-center">
+        <h2 class="font-display text-2xl font-medium mb-4">About Our <span class="italic text-primary">{{ category.name }}</span></h2>
+        <p class="text-sm opacity-60 leading-relaxed">{{ category.description }}</p>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

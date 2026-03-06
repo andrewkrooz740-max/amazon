@@ -1,0 +1,459 @@
+[
+  {
+    "model": "shop.category",
+    "pk": 1,
+    "fields": {
+      "name": "Bedding",
+      "slug": "bedding",
+      "description": "Transform your bedroom into a sanctuary with our luxurious bedding collection. From silky smooth duvet covers to plush pillows, each piece is crafted from the finest materials for an unparalleled sleep experience.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 2,
+    "fields": {
+      "name": "Bath",
+      "slug": "bath",
+      "description": "Elevate your bathing ritual with our premium bath linens. Turkish cotton towels, organic bathrobes, and spa-quality accessories bring hotel luxury to your home.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 3,
+    "fields": {
+      "name": "Curtains",
+      "slug": "curtains",
+      "description": "Frame your windows with elegance. Our curtain collection features light-filtering linens, opulent velvets, and thermal-insulating options in timeless designs.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 4,
+    "fields": {
+      "name": "Carpets",
+      "slug": "carpets",
+      "description": "Ground your space in luxury with our handcrafted carpets and rugs. From Persian-inspired designs to contemporary minimalist pieces, each rug tells a story of artisan craftsmanship.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 5,
+    "fields": {
+      "name": "Accents",
+      "slug": "accents",
+      "description": "Complete your home with our curated selection of decorative accents. Cashmere throws, silk cushions, and artisanal table linens add the finishing touch to any room.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "Silk Duvet Cover Set",
+      "slug": "silk-duvet-cover-set",
+      "description": "Indulge in the ultimate luxury with our 100% mulberry silk duvet cover. Temperature-regulating and hypoallergenic, this set includes a duvet cover and two pillowcases in lustrous charmeuse weave.",
+      "price": "890.00",
+      "stock": 25,
+      "is_available": true,
+      "is_featured": true,
+      "is_new": true,
+      "is_bestseller": false,
+      "created": "2024-01-15T10:00:00Z",
+      "updated": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "name": "Egyptian Cotton Sheet Set",
+      "slug": "egyptian-cotton-sheet-set",
+      "description": "Experience the legendary softness of genuine Egyptian cotton. Our 1000-thread-count sateen sheets feature a subtle sheen and get softer with every wash. Set includes flat sheet, fitted sheet, and pillowcases.",
+      "price": "650.00",
+      "stock": 40,
+      "is_available": true,
+      "is_featured": true,
+      "is_new": false,
+      "is_bestseller": true,
+      "created": "2024-01-10T10:00:00Z",
+      "updated": "2024-01-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 3,
+    "fields": {
+      "category": 1,
+      "name": "Linen Duvet Cover",
+      "slug": "linen-duvet-cover",
+      "description": "Stonewashed Belgian linen in a relaxed, lived-in style. Breathable and temperature-regulating, perfect for year-round comfort. Features mother-of-pearl button closure.",
+      "price": "420.00",
+      "stock": 35,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": true,
+      "is_bestseller": false,
+      "created": "2024-02-01T10:00:00Z",
+      "updated": "2024-02-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 4,
+    "fields": {
+      "category": 1,
+      "name": "Down Alternative Pillow",
+      "slug": "down-alternative-pillow",
+      "description": "Plush hypoallergenic pillow with premium microfiber fill. Medium support perfect for all sleep positions. Features 400-thread-count cotton cover.",
+      "price": "120.00",
+      "stock": 100,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": false,
+      "is_bestseller": true,
+      "created": "2024-01-05T10:00:00Z",
+      "updated": "2024-01-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 5,
+    "fields": {
+      "category": 2,
+      "name": "Turkish Cotton Towel Set",
+      "slug": "turkish-cotton-towel-set",
+      "description": "Woven from premium Aegean cotton with a 700 GSM weight for exceptional absorbency. Set includes 2 bath towels, 2 hand towels, and 2 washcloths.",
+      "price": "180.00",
+      "stock": 60,
+      "is_available": true,
+      "is_featured": true,
+      "is_new": false,
+      "is_bestseller": true,
+      "created": "2024-01-08T10:00:00Z",
+      "updated": "2024-01-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 6,
+    "fields": {
+      "category": 2,
+      "name": "Waffle Weave Bathrobe",
+      "slug": "waffle-weave-bathrobe",
+      "description": "Lightweight waffle weave robe in organic cotton. Spa-inspired design with shawl collar, patch pockets, and matching belt. Quick-drying and travel-friendly.",
+      "price": "145.00",
+      "stock": 45,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": true,
+      "is_bestseller": false,
+      "created": "2024-02-05T10:00:00Z",
+      "updated": "2024-02-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 7,
+    "fields": {
+      "category": 2,
+      "name": "Bamboo Bath Mat",
+      "slug": "bamboo-bath-mat",
+      "description": "Eco-friendly bamboo bath mat with antimicrobial properties. Features non-slip rubber backing and elegant slatted design. Water-resistant and easy to clean.",
+      "price": "85.00",
+      "stock": 70,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": false,
+      "is_bestseller": false,
+      "created": "2024-01-12T10:00:00Z",
+      "updated": "2024-01-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 8,
+    "fields": {
+      "category": 3,
+      "name": "Linen Curtain Panels",
+      "slug": "linen-curtain-panels",
+      "description": "Pure French linen curtains with soft light-filtering properties. Each panel features a rod pocket top and weighted hem for beautiful draping. Sold as a pair.",
+      "price": "320.00",
+      "stock": 30,
+      "is_available": true,
+      "is_featured": true,
+      "is_new": true,
+      "is_bestseller": false,
+      "created": "2024-02-10T10:00:00Z",
+      "updated": "2024-02-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 9,
+    "fields": {
+      "category": 3,
+      "name": "Velvet Blackout Curtains",
+      "slug": "velvet-blackout-curtains",
+      "description": "Sumptuous cotton velvet curtains with complete blackout lining. Perfect for bedrooms and media rooms. Features triple-fold pinch pleat heading. Sold as a pair.",
+      "price": "480.00",
+      "stock": 20,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": false,
+      "is_bestseller": true,
+      "created": "2024-01-20T10:00:00Z",
+      "updated": "2024-01-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 10,
+    "fields": {
+      "category": 3,
+      "name": "Sheer Voile Panels",
+      "slug": "sheer-voile-panels",
+      "description": "Delicate polyester voile panels that filter light while maintaining privacy. Machine washable with wrinkle-resistant finish. Set of 2 panels.",
+      "price": "95.00",
+      "stock": 55,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": false,
+      "is_bestseller": false,
+      "created": "2024-01-18T10:00:00Z",
+      "updated": "2024-01-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 11,
+    "fields": {
+      "category": 4,
+      "name": "Hand-Knotted Persian Rug",
+      "slug": "hand-knotted-persian-rug",
+      "description": "Authentic hand-knotted wool rug featuring traditional Persian medallion design. Each piece takes artisans months to complete. Size: 8' x 10'.",
+      "price": "2890.00",
+      "stock": 8,
+      "is_available": true,
+      "is_featured": true,
+      "is_new": false,
+      "is_bestseller": false,
+      "created": "2024-01-25T10:00:00Z",
+      "updated": "2024-01-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 12,
+    "fields": {
+      "category": 4,
+      "name": "Moroccan Berber Rug",
+      "slug": "moroccan-berber-rug",
+      "description": "Handwoven by Berber artisans using traditional techniques. Plush wool pile with iconic diamond pattern. Size: 5' x 8'.",
+      "price": "1250.00",
+      "stock": 15,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": true,
+      "is_bestseller": true,
+      "created": "2024-02-08T10:00:00Z",
+      "updated": "2024-02-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 13,
+    "fields": {
+      "category": 4,
+      "name": "Jute Natural Rug",
+      "slug": "jute-natural-rug",
+      "description": "Sustainably harvested jute fibers in a casual braided design. Perfect for coastal or bohemian interiors. Size: 6' x 9'.",
+      "price": "380.00",
+      "stock": 25,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": false,
+      "is_bestseller": false,
+      "created": "2024-01-22T10:00:00Z",
+      "updated": "2024-01-22T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 14,
+    "fields": {
+      "category": 5,
+      "name": "Cashmere Throw Blanket",
+      "slug": "cashmere-throw-blanket",
+      "description": "Ultra-soft 100% Mongolian cashmere throw with hand-tied fringe. Lightweight yet incredibly warm. Size: 50\" x 60\".",
+      "price": "450.00",
+      "stock": 30,
+      "is_available": true,
+      "is_featured": true,
+      "is_new": true,
+      "is_bestseller": true,
+      "created": "2024-02-12T10:00:00Z",
+      "updated": "2024-02-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 15,
+    "fields": {
+      "category": 5,
+      "name": "Silk Decorative Pillows",
+      "slug": "silk-decorative-pillows",
+      "description": "Set of 2 silk dupioni throw pillows with invisible zipper closure. Features feather-down insert for luxurious plumpness. Size: 20\" x 20\".",
+      "price": "195.00",
+      "stock": 45,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": false,
+      "is_bestseller": false,
+      "created": "2024-01-28T10:00:00Z",
+      "updated": "2024-01-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 16,
+    "fields": {
+      "category": 5,
+      "name": "Linen Table Runner",
+      "slug": "linen-table-runner",
+      "description": "Elegant stonewashed linen table runner with mitered corners. Perfect for everyday dining or special occasions. Size: 16\" x 90\".",
+      "price": "85.00",
+      "stock": 50,
+      "is_available": true,
+      "is_featured": false,
+      "is_new": true,
+      "is_bestseller": false,
+      "created": "2024-02-15T10:00:00Z",
+      "updated": "2024-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "core.featuredcollection",
+    "pk": 1,
+    "fields": {
+      "title": "Minimalist Haven",
+      "slug": "minimalist-haven",
+      "subtitle": "Limited Edition",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.featuredcollection",
+    "pk": 2,
+    "fields": {
+      "title": "Luxe Comfort",
+      "slug": "luxe-comfort",
+      "subtitle": "Best Sellers",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "name": "Ivory",
+      "hex_code": "#FFFFF0"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "name": "Champagne",
+      "hex_code": "#F7E7CE"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 3,
+    "fields": {
+      "product": 1,
+      "name": "Slate",
+      "hex_code": "#708090"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 4,
+    "fields": {
+      "product": 2,
+      "name": "White",
+      "hex_code": "#FFFFFF"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 5,
+    "fields": {
+      "product": 2,
+      "name": "Ivory",
+      "hex_code": "#FFFFF0"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 6,
+    "fields": {
+      "product": 5,
+      "name": "White",
+      "hex_code": "#FFFFFF"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 7,
+    "fields": {
+      "product": 5,
+      "name": "Stone",
+      "hex_code": "#8B8680"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 8,
+    "fields": {
+      "product": 5,
+      "name": "Navy",
+      "hex_code": "#000080"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 9,
+    "fields": {
+      "product": 14,
+      "name": "Oatmeal",
+      "hex_code": "#D2B48C"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 10,
+    "fields": {
+      "product": 14,
+      "name": "Charcoal",
+      "hex_code": "#36454F"
+    }
+  },
+  {
+    "model": "shop.productcolor",
+    "pk": 11,
+    "fields": {
+      "product": 14,
+      "name": "Blush",
+      "hex_code": "#DE5D83"
+    }
+  }
+]

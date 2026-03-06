@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-6">Inventory Management</h1>
+    <form method="post" enctype="multipart/form-data" class="bg-white shadow p-6 rounded-lg max-w-xl mx-auto">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="product" class="block text-sm font-bold mb-2">Product</label>
+            <select name="product" id="product" class="w-full border px-3 py-2 rounded">
+                {% for product in products %}
+                    <option value="{{ product.id }}">{{ product.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="quantity" class="block text-sm font-bold mb-2">Quantity</label>
+            <input type="number" name="quantity" id="quantity" class="w-full border px-3 py-2 rounded" required>
+        </div>
+        <div class="mb-4">
+            <label for="note" class="block text-sm font-bold mb-2">Note</label>
+            <input type="text" name="note" id="note" class="w-full border px-3 py-2 rounded">
+        </div>
+        <div class="mb-4">
+            <label for="image" class="block text-sm font-bold mb-2">Image (optional)</label>
+            <input type="file" name="image" id="image" class="w-full border px-3 py-2 rounded">
+        </div>
+        <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Add Stock Entry</button>
+    </form>
+
+    <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Recent Stock Entries</h2>
+        <table class="w-full border">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 border">Product</th>
+                    <th class="px-4 py-2 border">Quantity</th>
+                    <th class="px-4 py-2 border">Note</th>
+                    <th class="px-4 py-2 border">Image</th>
+                    <th class="px-4 py-2 border">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in stock_entries %}
+                <tr>
+                    <td class="px-4 py-2 border">{{ entry.product.name }}</td>
+                    <td class="px-4 py-2 border">{{ entry.quantity }}</td>
+                    <td class="px-4 py-2 border">{{ entry.note }}</td>
+                    <td class="px-4 py-2 border">
+                        {% if entry.image %}
+                            <img src="{{ entry.image.url }}" alt="Stock Image" class="h-16 max-w-xs object-contain" />
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-2 border">{{ entry.created_at|date:'Y-m-d H:i' }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="text-center py-4">No stock entries yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

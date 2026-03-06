@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<section class="py-8 px-4 max-w-7xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="text-xs uppercase tracking-widest opacity-50 mb-8">
+        <a href="{% url 'core:home' %}" class="hover:text-primary no-underline text-inherit">Home</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'shop:product_list' %}" class="hover:text-primary no-underline text-inherit">Shop</a>
+        <span class="mx-2">/</span>
+        {% if product.category %}
+        <a href="{% url 'shop:product_list_by_category' product.category.slug %}" class="hover:text-primary no-underline text-inherit">{{ product.category.name }}</a>
+        <span class="mx-2">/</span>
+        {% endif %}
+        <span class="text-primary">{{ product.name }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Product Images -->
+        <div class="space-y-4">
+            <div class="aspect-square overflow-hidden bg-stone-100">
+                <img id="main-image" 
+                     alt="{{ product.name }}" 
+                     class="w-full h-full object-cover"
+                     src="{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80{% endif %}"/>
+            </div>
+            {% if product.images.exists %}
+            <div class="flex gap-2 overflow-x-auto no-scrollbar">
+                <button class="w-20 h-20 flex-shrink-0 overflow-hidden bg-stone-100 border-2 border-primary" onclick="document.getElementById('main-image').src='{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80{% endif %}'">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80{% endif %}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                </button>
+                {% for img in product.images.all %}
+                <button class="w-20 h-20 flex-shrink-0 overflow-hidden bg-stone-100 border-2 border-transparent hover:border-primary" onclick="document.getElementById('main-image').src='{{ img.image.url }}'">
+                    <img src="{{ img.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                </button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="lg:sticky lg:top-24 lg:self-start">
+            <div class="flex items-center gap-3 mb-4">
+                {% if product.is_new %}
+                <span class="bg-primary text-background-dark text-[10px] uppercase tracking-widest px-3 py-1 font-bold">New</span>
+                {% endif %}
+                {% if product.is_bestseller %}
+                <span class="bg-background-dark text-white text-[10px] uppercase tracking-widest px-2 py-1">Bestseller</span>
+                {% endif %}
+            </div>
+            
+            <h1 class="font-display text-3xl md:text-4xl font-medium mb-2">{{ product.name }}</h1>
+            
+            {% if product.category %}
+            <p class="text-sm opacity-50 mb-4">{{ product.category.name }}</p>
+            {% endif %}
+            
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-primary">★★★★★</span>
+                <span class="text-sm opacity-50">({{ product.id|add:47 }} reviews)</span>
+            </div>
+            
+            <p class="text-2xl font-bold mb-6">${{ product.price }}</p>
+            
+            {% if product.description %}
+            <p class="text-sm opacity-70 leading-relaxed mb-8">{{ product.description }}</p>
+            {% endif %}
+
+            {% if product.colors.exists %}
+            <div class="mb-6">
+                <p class="text-xs uppercase tracking-widest font-bold mb-3">Color</p>
+                <div class="flex gap-2">
+                    {% for color in product.colors.all %}
+                    <button class="w-8 h-8 rounded-full border-2 border-transparent hover:border-primary focus:border-primary transition-colors" 
+                            style="background-color: {{ color.hex_code }}" 
+                            title="{{ color.name }}"></button>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Add to Cart Form -->
+            <form method="post" action="{% url 'cart:cart_add' product.id %}" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <p class="text-xs uppercase tracking-widest font-bold mb-3">Quantity</p>
+                    <div class="flex items-center border border-primary/20 w-fit">
+                        <button type="button" onclick="decrementQty()" class="px-4 py-3 text-lg hover:text-primary">−</button>
+                        <input type="number" name="quantity" id="qty-input" value="1" min="1" max="{{ product.stock }}" 
+                               class="w-16 text-center border-x border-primary/20 py-3 bg-transparent focus:outline-none">
+                        <button type="button" onclick="incrementQty()" class="px-4 py-3 text-lg hover:text-primary">+</button>
+                    </div>
+                </div>
+                <input type="hidden" name="override" value="False">
+                
+                {% if product.stock > 0 %}
+                <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 text-xs uppercase tracking-widest font-bold transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">shopping_bag</span>
+                    Add to Cart
+                </button>
+                <p class="text-xs text-center opacity-50">{{ product.stock }} items in stock</p>
+                {% else %}
+                <button type="button" class="w-full bg-stone-300 text-stone-500 px-8 py-4 text-xs uppercase tracking-widest font-bold cursor-not-allowed">
+                    Out of Stock
+                </button>
+                {% endif %}
+            </form>
+
+            <!-- Product Details -->
+            <div class="mt-10 border-t border-primary/10 pt-8 space-y-4">
+                <details class="group">
+                    <summary class="flex items-center justify-between cursor-pointer text-sm uppercase tracking-widest font-bold py-3">
+                        Product Details
+                        <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                    </summary>
+                    <div class="pb-4 text-sm opacity-70 leading-relaxed">
+                        <ul class="space-y-2">
+                            <li>Premium quality materials</li>
+                            <li>Expertly crafted by artisans</li>
+                            <li>Ethically sourced fabrics</li>
+                            {% if product.description %}
+                            <li>{{ product.description }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </details>
+                <details class="group">
+                    <summary class="flex items-center justify-between cursor-pointer text-sm uppercase tracking-widest font-bold py-3 border-t border-primary/10">
+                        Care Instructions
+                        <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                    </summary>
+                    <div class="pb-4 text-sm opacity-70 leading-relaxed">
+                        <ul class="space-y-2">
+                            <li>Machine wash cold, gentle cycle</li>
+                            <li>Tumble dry low or air dry</li>
+                            <li>Iron on low heat if needed</li>
+                            <li>Do not bleach</li>
+                        </ul>
+                    </div>
+                </details>
+                <details class="group">
+                    <summary class="flex items-center justify-between cursor-pointer text-sm uppercase tracking-widest font-bold py-3 border-t border-primary/10">
+                        Shipping & Returns
+                        <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                    </summary>
+                    <div class="pb-4 text-sm opacity-70 leading-relaxed">
+                        <ul class="space-y-2">
+                            <li>Free shipping on orders over $200</li>
+                            <li>Standard delivery: 5-7 business days</li>
+                            <li>Express delivery available</li>
+                            <li>30-day easy returns</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Products -->
+{% if related_products %}
+<section class="py-16 px-4 max-w-7xl mx-auto border-t border-primary/10">
+    <div class="flex justify-between items-end mb-8">
+        <div>
+            <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">You May Also Like</p>
+            <h2 class="font-display text-2xl font-medium">Related <span class="italic text-primary">Products</span></h2>
+        </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {% for related in related_products %}
+        <a href="{% url 'shop:product_detail' related.slug %}" class="group no-underline text-inherit">
+            <div class="relative aspect-square mb-4 overflow-hidden bg-stone-100">
+                <img alt="{{ related.name }}" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     src="{% if related.image %}{{ related.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80{% endif %}"/>
+            </div>
+            <h3 class="text-sm font-medium truncate">{{ related.name }}</h3>
+            <p class="text-sm font-bold">${{ related.price }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function incrementQty() {
+    const input = document.getElementById('qty-input');
+    const max = parseInt(input.max) || 99;
+    if (parseInt(input.value) < max) {
+        input.value = parseInt(input.value) + 1;
+    }
+}
+
+function decrementQty() {
+    const input = document.getElementById('qty-input');
+    if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+    }
+}
+</script>
+{% endblock %}

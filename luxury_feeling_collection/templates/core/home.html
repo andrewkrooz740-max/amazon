@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative w-full bg-slate-900 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/30 z-10"></div>
+    <img alt="Luxury bed with premium silk bedding in neutral tones" class="absolute inset-0 w-full h-full object-cover object-center scale-105" 
+         src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1600&amp;q=80&amp;fit=crop" style="transform: scale(1.05);"/>
+    <div class="relative z-20 min-h-[80vh] flex flex-col justify-center items-start px-6 md:px-16 py-16">
+        <p class="text-[10px] tracking-[0.4em] uppercase text-white/70 mb-4">Spring Collection 2024</p>
+        <h1 class="font-display text-4xl md:text-6xl lg:text-7xl text-white font-medium leading-tight max-w-2xl">
+            The <span class="italic text-primary">Art</span> of<br/>Timeless Comfort
+        </h1>
+        <p class="mt-6 text-white/70 max-w-md leading-relaxed">Discover our curated collection of premium textiles, crafted for those who seek elegance in every detail.</p>
+        <div class="flex gap-4 mt-10">
+            <a class="group bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 text-xs uppercase tracking-widest transition-all flex items-center gap-2 no-underline" href="{% url 'shop:product_list' %}">
+                Explore Collection
+                <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="flex justify-between items-end mb-8">
+        <div>
+            <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">Curated Categories</p>
+            <h2 class="font-display text-2xl md:text-3xl font-medium">Shop by <span class="italic text-primary">Room</span></h2>
+        </div>
+        <a class="text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center gap-1 no-underline text-inherit" href="{% url 'shop:product_list' %}">
+            View All
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        {% for category in categories %}
+        <a href="{% url 'shop:product_list_by_category' category.slug %}" class="group relative aspect-[3/4] overflow-hidden no-underline">
+            <img alt="{{ category.name }}" 
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                 src="{% if category.image %}{{ category.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80{% endif %}"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white text-sm uppercase tracking-widest font-bold">{{ category.name }}</h3>
+                <p class="text-white/60 text-xs mt-1">{{ category.products.count }} Items</p>
+            </div>
+        </a>
+        {% empty %}
+        <!-- Default categories if none in database -->
+        <a class="group relative aspect-[3/4] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+            <img alt="Bedding collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&amp;q=80"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white text-sm uppercase tracking-widest font-bold">Bedding</h3>
+                <p class="text-white/60 text-xs mt-1">45 Items</p>
+            </div>
+        </a>
+        <a class="group relative aspect-[3/4] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+            <img alt="Bath collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&amp;q=80"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white text-sm uppercase tracking-widest font-bold">Bath</h3>
+                <p class="text-white/60 text-xs mt-1">32 Items</p>
+            </div>
+        </a>
+        <a class="group relative aspect-[3/4] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+            <img alt="Curtains collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&amp;q=80"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white text-sm uppercase tracking-widest font-bold">Curtains</h3>
+                <p class="text-white/60 text-xs mt-1">28 Items</p>
+            </div>
+        </a>
+        <a class="group relative aspect-[3/4] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+            <img alt="Carpets collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1600166898405-da9535204843?w=600&amp;q=80"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white text-sm uppercase tracking-widest font-bold">Carpets</h3>
+                <p class="text-white/60 text-xs mt-1">18 Items</p>
+            </div>
+        </a>
+        <a class="group relative aspect-[3/4] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+            <img alt="Accents collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&amp;q=80"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white text-sm uppercase tracking-widest font-bold">Accents</h3>
+                <p class="text-white/60 text-xs mt-1">56 Items</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Featured Collections -->
+{% if featured_collections %}
+<section class="py-16 px-4 bg-stone-100 dark:bg-stone-900/30">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">Handpicked Selection</p>
+                <h2 class="font-display text-2xl md:text-3xl font-medium">Featured <span class="italic text-primary">Collections</span></h2>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for collection in featured_collections %}
+            <a href="{% url 'shop:product_list' %}?collection={{ collection.slug }}" class="group relative aspect-[16/9] overflow-hidden no-underline">
+                <img alt="{{ collection.title }}" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                     src="{% if collection.image %}{{ collection.image.url }}{% else %}https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80{% endif %}"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8">
+                    <p class="text-[10px] text-white/60 uppercase tracking-widest mb-2">{{ collection.subtitle }}</p>
+                    <h3 class="text-white text-xl md:text-2xl font-medium">{{ collection.title }}</h3>
+                    <span class="inline-flex items-center mt-4 text-xs text-white uppercase tracking-widest group-hover:text-primary transition-colors">
+                        Shop Now <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                    </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="py-16 px-4 bg-stone-100 dark:bg-stone-900/30">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">Handpicked Selection</p>
+                <h2 class="font-display text-2xl md:text-3xl font-medium">Featured <span class="italic text-primary">Collections</span></h2>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a class="group relative aspect-[16/9] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+                <img alt="Minimalist Haven" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&amp;q=80"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8">
+                    <p class="text-[10px] text-white/60 uppercase tracking-widest mb-2">Limited Edition</p>
+                    <h3 class="text-white text-xl md:text-2xl font-medium">Minimalist Haven</h3>
+                    <span class="inline-flex items-center mt-4 text-xs text-white uppercase tracking-widest group-hover:text-primary transition-colors">
+                        Shop Now <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                    </span>
+                </div>
+            </a>
+            <a class="group relative aspect-[16/9] overflow-hidden no-underline" href="{% url 'shop:product_list' %}">
+                <img alt="Luxe Comfort" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1597218868981-1b68e15f0065?w=1200&amp;q=80"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8">
+                    <p class="text-[10px] text-white/60 uppercase tracking-widest mb-2">Best Sellers</p>
+                    <h3 class="text-white text-xl md:text-2xl font-medium">Luxe Comfort</h3>
+                    <span class="inline-flex items-center mt-4 text-xs text-white uppercase tracking-widest group-hover:text-primary transition-colors">
+                        Shop Now <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- New Arrivals -->
+<section class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="flex justify-between items-end mb-8">
+        <div>
+            <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">Just Landed</p>
+            <h2 class="font-display text-2xl md:text-3xl font-medium">New <span class="italic text-primary">Arrivals</span></h2>
+        </div>
+        <a class="text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center gap-1 no-underline text-inherit" href="{% url 'shop:product_list' %}?filter=new">
+            View All
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+    </div>
+    <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+        {% for product in new_arrivals %}
+        <a href="{% url 'shop:product_detail' product.slug %}" class="group flex-shrink-0 w-48 md:w-64 no-underline text-inherit">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden bg-stone-100">
+                <img alt="{{ product.name }}" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     src="{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80{% endif %}"/>
+                {% if product.is_new %}
+                <span class="absolute top-3 left-3 bg-primary text-background-dark text-[10px] uppercase tracking-widest px-3 py-1 font-bold">New</span>
+                {% endif %}
+            </div>
+            <h3 class="text-sm font-medium truncate">{{ product.name }}</h3>
+            <p class="text-xs opacity-50 mb-1">{{ product.category.name }}</p>
+            <p class="text-sm font-bold">${{ product.price }}</p>
+        </a>
+        {% empty %}
+        <!-- Default products if none in database -->
+        <div class="group flex-shrink-0 w-48 md:w-64">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden bg-stone-100">
+                <img alt="Silk Duvet Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&amp;q=80"/>
+                <span class="absolute top-3 left-3 bg-primary text-background-dark text-[10px] uppercase tracking-widest px-3 py-1 font-bold">New</span>
+            </div>
+            <h3 class="text-sm font-medium truncate">Silk Duvet Cover</h3>
+            <p class="text-xs opacity-50 mb-1">Bedding</p>
+            <p class="text-sm font-bold">$890</p>
+        </div>
+        <div class="group flex-shrink-0 w-48 md:w-64">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden bg-stone-100">
+                <img alt="Cashmere Throw" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&amp;q=80"/>
+            </div>
+            <h3 class="text-sm font-medium truncate">Cashmere Throw</h3>
+            <p class="text-xs opacity-50 mb-1">Accents</p>
+            <p class="text-sm font-bold">$450</p>
+        </div>
+        <div class="group flex-shrink-0 w-48 md:w-64">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden bg-stone-100">
+                <img alt="Linen Curtain Panels" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1534889156217-d643df14f14a?w=600&amp;q=80"/>
+            </div>
+            <h3 class="text-sm font-medium truncate">Linen Curtain Panels</h3>
+            <p class="text-xs opacity-50 mb-1">Curtains</p>
+            <p class="text-sm font-bold">$320</p>
+        </div>
+        <div class="group flex-shrink-0 w-48 md:w-64">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden bg-stone-100">
+                <img alt="Turkish Bath Towel Set" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=600&amp;q=80"/>
+            </div>
+            <h3 class="text-sm font-medium truncate">Turkish Bath Towel Set</h3>
+            <p class="text-xs opacity-50 mb-1">Bath</p>
+            <p class="text-sm font-bold">$180</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-20 px-4 bg-background-dark text-white">
+    <div class="max-w-2xl mx-auto text-center">
+        <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-4">Join the Inner Circle</p>
+        <h2 class="font-display text-2xl md:text-4xl font-medium mb-4">Receive Exclusive <span class="italic text-primary">Offers</span></h2>
+        <p class="text-sm opacity-60 leading-relaxed mb-8">Subscribe to receive early access to new collections, private sales, and interior styling tips from our design experts.</p>
+        <form method="post" action="{% url 'newsletter:subscribe' %}" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            {% csrf_token %}
+            <input class="flex-1 bg-white/10 border border-white/20 rounded-none px-5 py-4 text-sm placeholder:text-white/40 focus:outline-none focus:border-primary" 
+                   name="email" 
+                   placeholder="Enter your email address" 
+                   type="email" 
+                   required/>
+            <button class="bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 text-xs uppercase tracking-widest font-bold transition-colors" type="submit">
+                Subscribe
+            </button>
+        </form>
+        <p class="text-[10px] opacity-30 mt-4">By subscribing, you agree to our Privacy Policy and consent to receive updates.</p>
+    </div>
+</section>
+
+<!-- Bestsellers -->
+{% if bestsellers %}
+<section class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="flex justify-between items-end mb-8">
+        <div>
+            <p class="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">Customer Favorites</p>
+            <h2 class="font-display text-2xl md:text-3xl font-medium">Best <span class="italic text-primary">Sellers</span></h2>
+        </div>
+        <a class="text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center gap-1 no-underline text-inherit" href="{% url 'shop:product_list' %}?filter=bestseller">
+            View All
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {% for product in bestsellers %}
+        <a href="{% url 'shop:product_detail' product.slug %}" class="group no-underline text-inherit">
+            <div class="relative aspect-square mb-4 overflow-hidden bg-stone-100">
+                <img alt="{{ product.name }}" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     src="{% if product.image %}{{ product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80{% endif %}"/>
+                {% if product.is_bestseller %}
+                <span class="absolute top-3 right-3 bg-background-dark text-white text-[10px] uppercase tracking-widest px-2 py-1">Bestseller</span>
+                {% endif %}
+            </div>
+            <h3 class="text-sm font-medium">{{ product.name }}</h3>
+            <div class="flex items-center gap-1 my-1">
+                <span class="text-primary text-xs">★★★★★</span>
+                <span class="text-[10px] opacity-50">({{ product.id|add:120 }})</span>
+            </div>
+            <p class="text-sm font-bold">${{ product.price }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Brand Values -->
+<section class="py-16 px-4 border-t border-primary/10">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">eco</span>
+            <h6 class="text-xs font-bold uppercase tracking-widest mb-2">Sustainable</h6>
+            <p class="text-xs opacity-50">Ethically sourced materials</p>
+        </div>
+        <div>
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">workspace_premium</span>
+            <h6 class="text-xs font-bold uppercase tracking-widest mb-2">Premium Quality</h6>
+            <p class="text-xs opacity-50">Artisan craftsmanship</p>
+        </div>
+        <div>
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">local_shipping</span>
+            <h6 class="text-xs font-bold uppercase tracking-widest mb-2">Free Shipping</h6>
+            <p class="text-xs opacity-50">On orders over $200</p>
+        </div>
+        <div>
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">autorenew</span>
+            <h6 class="text-xs font-bold uppercase tracking-widest mb-2">Easy Returns</h6>
+            <p class="text-xs opacity-50">30-day return policy</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

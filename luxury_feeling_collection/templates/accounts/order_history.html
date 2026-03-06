@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<section class="py-12 px-4 max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="text-xs uppercase tracking-widest opacity-50 mb-8">
+        <a href="{% url 'core:home' %}" class="hover:text-primary no-underline text-inherit">Home</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'accounts:profile' %}" class="hover:text-primary no-underline text-inherit">My Account</a>
+        <span class="mx-2">/</span>
+        <span class="text-primary">Order History</span>
+    </nav>
+
+    <h1 class="font-display text-3xl md:text-4xl font-medium mb-8">Order <span class="italic text-primary">History</span></h1>
+
+    {% if orders %}
+    <div class="space-y-6">
+        {% for order in orders %}
+        <div class="border border-primary/10">
+            <!-- Order Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-6 bg-stone-50 dark:bg-stone-900/50">
+                <div class="flex flex-wrap gap-6">
+                    <div>
+                        <p class="text-xs uppercase tracking-widest opacity-50 mb-1">Order Number</p>
+                        <p class="text-sm font-bold">#{{ order.id }}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest opacity-50 mb-1">Date</p>
+                        <p class="text-sm">{{ order.created|date:"F j, Y" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest opacity-50 mb-1">Total</p>
+                        <p class="text-sm font-bold">${{ order.total_cost }}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="px-3 py-1 text-xs uppercase tracking-widest {% if order.status == 'delivered' %}bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400{% elif order.status == 'shipped' %}bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400{% else %}bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400{% endif %}">
+                        {{ order.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="p-6">
+                <div class="space-y-4">
+                    {% for item in order.items.all %}
+                    <div class="flex gap-4">
+                        <a href="{% url 'shop:product_detail' item.product.slug %}" class="w-16 h-16 flex-shrink-0 overflow-hidden bg-stone-100">
+                            <img alt="{{ item.product.name }}" 
+                                 class="w-full h-full object-cover"
+                                 src="{% if item.product.image %}{{ item.product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=150&q=80{% endif %}"/>
+                        </a>
+                        <div class="flex-1">
+                            <a href="{% url 'shop:product_detail' item.product.slug %}" class="text-sm font-medium hover:text-primary no-underline text-inherit">{{ item.product.name }}</a>
+                            <p class="text-xs opacity-50">Qty: {{ item.quantity }}</p>
+                        </div>
+                        <p class="text-sm font-medium">${{ item.get_cost }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Shipping Info -->
+                <div class="mt-6 pt-6 border-t border-primary/10">
+                    <p class="text-xs uppercase tracking-widest opacity-50 mb-2">Shipped To</p>
+                    <p class="text-sm opacity-70">
+                        {{ order.first_name }} {{ order.last_name }}, {{ order.address }}, {{ order.city }}, {{ order.country }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <!-- No Orders -->
+    <div class="text-center py-16">
+        <span class="material-symbols-outlined text-6xl opacity-20 mb-4">receipt_long</span>
+        <h2 class="text-xl font-medium mb-2">No orders yet</h2>
+        <p class="opacity-60 mb-8">Start shopping to see your order history here.</p>
+        <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-2 bg-primary text-background-dark px-8 py-4 text-xs uppercase tracking-widest no-underline">
+            Start Shopping
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

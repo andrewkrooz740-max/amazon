@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<section class="py-12 px-4 max-w-6xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="text-xs uppercase tracking-widest opacity-50 mb-8">
+        <a href="{% url 'core:home' %}" class="hover:text-primary no-underline text-inherit">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-primary">Shopping Cart</span>
+    </nav>
+
+    <h1 class="font-display text-3xl md:text-4xl font-medium mb-8">Shopping <span class="italic text-primary">Cart</span></h1>
+
+    {% if cart|length > 0 %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Cart Items -->
+        <div class="lg:col-span-2 space-y-6">
+            {% for item in cart %}
+            <div class="flex gap-4 pb-6 border-b border-primary/10">
+                <a href="{% url 'shop:product_detail' item.product.slug %}" class="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 overflow-hidden bg-stone-100">
+                    <img alt="{{ item.product.name }}" 
+                         class="w-full h-full object-cover"
+                         src="{% if item.product.image %}{{ item.product.image.url }}{% else %}https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=300&q=80{% endif %}"/>
+                </a>
+                <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <a href="{% url 'shop:product_detail' item.product.slug %}" class="text-sm md:text-base font-medium hover:text-primary no-underline text-inherit">{{ item.product.name }}</a>
+                            <p class="text-xs opacity-50 mt-1">{{ item.product.category.name }}</p>
+                        </div>
+                        <form method="post" action="{% url 'cart:cart_remove' item.product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="p-1 opacity-50 hover:opacity-100 hover:text-red-500 transition-colors">
+                                <span class="material-symbols-outlined text-lg">close</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="flex justify-between items-end mt-4">
+                        <form method="post" action="{% url 'cart:cart_add' item.product.id %}" class="flex items-center border border-primary/20">
+                            {% csrf_token %}
+                            <input type="hidden" name="override" value="True">
+                            <button type="submit" name="quantity" value="{{ item.quantity|add:-1 }}" 
+                                    class="px-3 py-2 text-sm hover:text-primary {% if item.quantity <= 1 %}opacity-30 pointer-events-none{% endif %}">−</button>
+                            <span class="w-10 text-center text-sm">{{ item.quantity }}</span>
+                            <button type="submit" name="quantity" value="{{ item.quantity|add:1 }}" 
+                                    class="px-3 py-2 text-sm hover:text-primary">+</button>
+                        </form>
+                        <p class="text-sm font-bold">${{ item.total_price }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Continue Shopping -->
+            <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-2 text-sm hover:text-primary transition-colors no-underline text-inherit">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                Continue Shopping
+            </a>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="lg:sticky lg:top-24 lg:self-start">
+            <div class="bg-stone-100 dark:bg-stone-900/50 p-6">
+                <h2 class="text-lg font-bold uppercase tracking-widest mb-6">Order Summary</h2>
+                
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="opacity-60">Subtotal</span>
+                        <span class="font-medium">${{ cart.get_total_price }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="opacity-60">Shipping</span>
+                        <span class="font-medium">{% if cart.get_total_price >= 200 %}FREE{% else %}$15.00{% endif %}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="opacity-60">Tax</span>
+                        <span class="font-medium">Calculated at checkout</span>
+                    </div>
+                </div>
+
+                <hr class="my-6 border-primary/10">
+
+                <div class="flex justify-between text-lg font-bold mb-6">
+                    <span>Total</span>
+                    <span>${{ cart.get_total_price }}{% if cart.get_total_price < 200 %} + $15{% endif %}</span>
+                </div>
+
+                <a href="{% url 'orders:order_create' %}" class="block w-full bg-primary hover:bg-primary/90 text-background-dark text-center px-8 py-4 text-xs uppercase tracking-widest font-bold transition-colors no-underline">
+                    Proceed to Checkout
+                </a>
+
+                <p class="text-[10px] text-center opacity-40 mt-4">Free shipping on orders over $200</p>
+            </div>
+
+            <!-- Promo Code -->
+            <div class="mt-4 p-6 border border-primary/10">
+                <p class="text-xs uppercase tracking-widest font-bold mb-3">Promo Code</p>
+                <form class="flex gap-2">
+                    <input type="text" 
+                           placeholder="Enter code"
+                           class="flex-1 bg-transparent border border-primary/20 px-4 py-2 text-sm focus:outline-none focus:border-primary">
+                    <button type="submit" class="px-4 py-2 border border-primary text-primary text-xs uppercase tracking-widest hover:bg-primary hover:text-background-dark transition-colors">
+                        Apply
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Empty Cart -->
+    <div class="text-center py-16">
+        <span class="material-symbols-outlined text-6xl opacity-20 mb-4">shopping_bag</span>
+        <h2 class="text-xl font-medium mb-2">Your cart is empty</h2>
+        <p class="opacity-60 mb-8">Looks like you haven't added any items yet.</p>
+        <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-2 bg-primary text-background-dark px-8 py-4 text-xs uppercase tracking-widest no-underline">
+            Start Shopping
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

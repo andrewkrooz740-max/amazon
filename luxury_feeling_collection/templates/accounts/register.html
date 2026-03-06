@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<section class="py-16 px-4 max-w-md mx-auto">
+    <div class="text-center mb-8">
+        <h1 class="font-display text-3xl font-medium mb-2">Create <span class="italic text-primary">Account</span></h1>
+        <p class="text-sm opacity-60">Join the Luxury Feeling family</p>
+    </div>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4">
+            {% for error in form.non_field_errors %}
+            <p class="text-sm text-red-600 dark:text-red-400">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div>
+            <label class="text-xs uppercase tracking-widest font-bold mb-2 block">Username</label>
+            <input type="text" name="username" value="{{ form.username.value|default:'' }}" required
+                   class="w-full bg-transparent border border-primary/20 px-4 py-3 text-sm focus:outline-none focus:border-primary"
+                   placeholder="Choose a username">
+            {% if form.username.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="text-xs uppercase tracking-widest font-bold mb-2 block">Email Address</label>
+            <input type="email" name="email" value="{{ form.email.value|default:'' }}" required
+                   class="w-full bg-transparent border border-primary/20 px-4 py-3 text-sm focus:outline-none focus:border-primary"
+                   placeholder="your@email.com">
+            {% if form.email.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="text-xs uppercase tracking-widest font-bold mb-2 block">Password</label>
+            <input type="password" name="password1" required
+                   class="w-full bg-transparent border border-primary/20 px-4 py-3 text-sm focus:outline-none focus:border-primary"
+                   placeholder="Create a password">
+            {% if form.password1.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ form.password1.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="text-xs uppercase tracking-widest font-bold mb-2 block">Confirm Password</label>
+            <input type="password" name="password2" required
+                   class="w-full bg-transparent border border-primary/20 px-4 py-3 text-sm focus:outline-none focus:border-primary"
+                   placeholder="Confirm your password">
+            {% if form.password2.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ form.password2.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="flex items-start gap-2">
+            <input type="checkbox" name="terms" required class="w-4 h-4 mt-1 border border-primary/20 text-primary focus:ring-primary">
+            <span class="text-sm opacity-60">
+                I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+            </span>
+        </div>
+
+        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 text-xs uppercase tracking-widest font-bold transition-colors">
+            Create Account
+        </button>
+    </form>
+
+    <div class="mt-8 text-center">
+        <p class="text-sm opacity-60">
+            Already have an account?
+            <a href="{% url 'accounts:login' %}" class="text-primary hover:underline">Sign in</a>
+        </p>
+    </div>
+
+    <!-- Benefits -->
+    <div class="mt-12 p-6 bg-stone-100 dark:bg-stone-900/50">
+        <p class="text-xs uppercase tracking-widest font-bold mb-4 text-center">Member Benefits</p>
+        <ul class="space-y-3 text-sm opacity-70">
+            <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                Exclusive access to new collections
+            </li>
+            <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                Member-only discounts
+            </li>
+            <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                Faster checkout experience
+            </li>
+            <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                Order tracking & history
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

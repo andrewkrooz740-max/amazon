@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>{% block title %}Luxury Feeling Collection{% endblock %} | Premium Home Textiles</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#e6b319",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#211d11",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 w-full bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-primary/10">
+        <div class="flex items-center justify-between px-4 py-4 max-w-7xl mx-auto">
+            <div class="flex items-center gap-4">
+                <button class="p-1 hover:text-primary transition-colors" id="mobile-menu-btn">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+                <a href="{% url 'core:search' %}" class="p-1 hover:text-primary transition-colors hidden sm:block">
+                    <span class="material-symbols-outlined text-2xl">search</span>
+                </a>
+            </div>
+            <a href="{% url 'core:home' %}" class="text-xl md:text-2xl font-bold tracking-[0.2em] text-center uppercase no-underline text-inherit">
+                Luxury <span class="text-primary italic font-normal">Feeling</span>
+            </a>
+            <div class="flex items-center gap-3 sm:gap-5">
+                <a href="{% url 'core:search' %}" class="p-1 hover:text-primary transition-colors sm:hidden">
+                    <span class="material-symbols-outlined text-2xl">search</span>
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'accounts:profile' %}" class="p-1 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">person</span>
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="p-1 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">person</span>
+                </a>
+                {% endif %}
+                <a href="{% url 'cart:cart_detail' %}" class="p-1 hover:text-primary transition-colors relative">
+                    <span class="material-symbols-outlined text-2xl">shopping_bag</span>
+                    {% if cart|length > 0 %}
+                    <span class="absolute -top-1 -right-1 bg-primary text-[10px] text-background-dark font-bold rounded-full w-4 h-4 flex items-center justify-center" id="cart-count">{{ cart|length }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/50 hidden">
+        <div class="absolute left-0 top-0 h-full w-72 bg-background-light dark:bg-background-dark shadow-2xl transform -translate-x-full transition-transform duration-300" id="mobile-menu-panel">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-lg font-bold tracking-widest uppercase">Menu</span>
+                    <button id="close-menu" class="p-1">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <nav class="space-y-4">
+                    <a href="{% url 'core:home' %}" class="block py-2 text-lg hover:text-primary transition-colors">Home</a>
+                    <a href="{% url 'shop:product_list' %}" class="block py-2 text-lg hover:text-primary transition-colors">Shop All</a>
+                    {% for category in all_categories %}
+                    <a href="{% url 'shop:product_list_by_category' category.slug %}" class="block py-2 hover:text-primary transition-colors">{{ category.name }}</a>
+                    {% endfor %}
+                    <hr class="border-primary/10 my-4">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:profile' %}" class="block py-2 hover:text-primary transition-colors">My Account</a>
+                    <a href="{% url 'accounts:order_history' %}" class="block py-2 hover:text-primary transition-colors">Order History</a>
+                    <a href="{% url 'accounts:logout' %}" class="block py-2 hover:text-primary transition-colors">Logout</a>
+                    {% else %}
+                    <a href="{% url 'accounts:login' %}" class="block py-2 hover:text-primary transition-colors">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="block py-2 hover:text-primary transition-colors">Register</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="fixed top-20 right-4 z-50 space-y-2">
+        {% for message in messages %}
+        <div class="px-6 py-4 rounded-lg shadow-lg {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% elif message.tags == 'warning' %}bg-yellow-500{% else %}bg-primary{% endif %} text-white animate-slide-in">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-light dark:bg-background-dark border-t border-primary/10 pt-16 pb-24">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12">
+            <div class="col-span-2 md:col-span-1">
+                <h2 class="text-lg font-bold tracking-[0.2em] uppercase mb-6">Luxury <br/><span class="text-primary italic font-normal">Feeling</span></h2>
+                <p class="text-sm opacity-60 leading-relaxed mb-6">Defining the standards of home comfort through exceptional textile artistry since 1994.</p>
+            </div>
+            <div>
+                <h6 class="text-xs font-bold uppercase tracking-[0.2em] mb-6">Shopping</h6>
+                <ul class="space-y-4 text-sm opacity-70">
+                    {% for category in all_categories %}
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'shop:product_list_by_category' category.slug %}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-xs font-bold uppercase tracking-[0.2em] mb-6">Account</h6>
+                <ul class="space-y-4 text-sm opacity-70">
+                    {% if user.is_authenticated %}
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'accounts:profile' %}">My Profile</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'accounts:order_history' %}">Order History</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'accounts:logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'accounts:register' %}">Register</a></li>
+                    {% endif %}
+                    <li><a class="hover:text-primary transition-colors" href="{% url 'cart:cart_detail' %}">Cart</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-xs font-bold uppercase tracking-[0.2em] mb-6">Connect</h6>
+                <p class="text-xs opacity-50 italic">Visit our flagship showroom in Paris.</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-primary/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest opacity-40">
+            <p>© 2024 LUXURY FEELING COLLECTION. ALL RIGHTS RESERVED.</p>
+            <div class="flex gap-6">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Mobile Nav -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-background-light/95 dark:bg-background-dark/95 border-t border-primary/10 px-6 py-3 flex justify-between items-center md:hidden">
+        <a class="flex flex-col items-center gap-1 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}opacity-50{% endif %}" href="{% url 'core:home' %}">
+            <span class="material-symbols-outlined text-2xl">home</span>
+            <span class="text-[10px] font-bold tracking-tighter uppercase">Home</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 {% if 'shop' in request.resolver_match.app_name %}text-primary{% else %}opacity-50{% endif %}" href="{% url 'shop:product_list' %}">
+            <span class="material-symbols-outlined text-2xl">category</span>
+            <span class="text-[10px] font-bold tracking-tighter uppercase">Shop</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 opacity-50" href="{% url 'core:search' %}">
+            <span class="material-symbols-outlined text-2xl">search</span>
+            <span class="text-[10px] font-bold tracking-tighter uppercase">Search</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 {% if 'cart' in request.resolver_match.app_name %}text-primary{% else %}opacity-50{% endif %} relative" href="{% url 'cart:cart_detail' %}">
+            <span class="material-symbols-outlined text-2xl">shopping_bag</span>
+            <span class="text-[10px] font-bold tracking-tighter uppercase">Cart</span>
+            {% if cart|length > 0 %}
+            <span class="absolute -top-1 right-2 bg-primary text-[8px] text-background-dark font-bold rounded-full w-4 h-4 flex items-center justify-center">{{ cart|length }}</span>
+            {% endif %}
+        </a>
+    </nav>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            setTimeout(() => {
+                mobileMenuPanel.classList.remove('-translate-x-full');
+            }, 10);
+        });
+
+        function closeMenu() {
+            mobileMenuPanel.classList.add('-translate-x-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+            }, 300);
+        }
+
+        closeMenuBtn.addEventListener('click', closeMenu);
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) closeMenu();
+        });
+
+        // Auto-hide messages
+        setTimeout(() => {
+            document.querySelectorAll('.animate-slide-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 300);
+            });
+        }, 4000);
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

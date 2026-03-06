@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopping Cart - Luxury Feeling</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Newsreader for the elegant serif look -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#e6b319',
+            'brand-dark': '#1a1a1a',
+            'brand-light': '#f9f8f4',
+            'brand-muted': '#717171',
+          },
+          fontFamily: {
+            serif: ['Newsreader', 'serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="typography">
+    body {
+      font-family: 'Newsreader', serif;
+      background-color: #f9f8f4;
+      color: #1a1a1a;
+    }
+    .text-serif-italic { font-style: italic; }
+  </style>
+</head>
+<body class="min-h-screen pb-32">
+<!-- BEGIN: Navigation Header -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between">
+<button aria-label="Go back" class="p-2">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</button>
+<div class="text-center">
+<h1 class="text-lg font-bold tracking-widest uppercase">Luxury</h1>
+<p class="text-[10px] tracking-[0.2em] text-brand -mt-1 font-semibold uppercase">Feeling</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</button>
+<div class="relative">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+<span class="absolute -top-1 -right-1 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+</div>
+</div>
+</header>
+<!-- END: Navigation Header -->
+<main class="max-w-md mx-auto p-5">
+<!-- BEGIN: Cart Title -->
+<section class="mb-8">
+<h2 class="text-3xl font-medium mb-1">Your Cart</h2>
+<p class="text-brand-muted text-sm italic">Review your selections for ultimate comfort.</p>
+</section>
+<!-- END: Cart Title -->
+<!-- BEGIN: Cart Items List -->
+<section class="space-y-6" data-purpose="cart-items-container">
+<!-- Cart Item 1 -->
+<div class="flex gap-4 border-b border-gray-200 pb-6" data-purpose="cart-item">
+<div class="w-24 h-32 bg-gray-100 rounded-custom overflow-hidden flex-shrink-0">
+<img alt="Premium Silk Bedding Set" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0ba3YG7lweV9coYxCDC2Vh3RCuz7ykm_1hnSNeBTzXkVWKzw6FHCdeg_TnQ9VgoQUuSXOHc0tkmti8AKe73nQy2cclKD1UtgsBq2DrzdCutHC71df2mVm6b-cQRWUukAB6leNvMNwVVzjG-MMJ39pq20d4YF3trxm5CvciEj6-sug0rJTAjSTs9XPiF_IOXAIwFKIDNubQoJ_fUNoSGRSG_wU-8kTserxEXXIGsrfZiramwswecfd_X-xazv5lwDTaQ9ADlWkVdxL"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-medium leading-tight">Premium Silk Bedding Set</h3>
+<button class="text-gray-400">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<p class="text-brand-muted text-xs mt-1 uppercase tracking-wider">Size: King | Color: Champagne Gold</p>
+<p class="text-brand font-semibold mt-2">$499.00</p>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center border border-gray-200 rounded-custom px-2 py-1 gap-4">
+<button class="text-gray-500 hover:text-brand transition-colors">-</button>
+<span class="text-sm font-medium">1</span>
+<button class="text-gray-500 hover:text-brand transition-colors">+</button>
+</div>
+<button class="text-xs text-brand-muted underline">Save for later</button>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="flex gap-4 border-b border-gray-200 pb-6" data-purpose="cart-item">
+<div class="w-24 h-32 bg-gray-100 rounded-custom overflow-hidden flex-shrink-0">
+<img alt="Pure Haven Fitted Sheet" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9uOEJETuAPI05VF02CuJVMhnseWtvvgz2khnlE2m7Gk9PjyTFMR4iDiSG0_Wsjk7_EM3RVzNfbzKGMGL_J8DHNGIlWtMUKwDjGP8Gn8t-slvmEtoXQBQVR_0aXNbvAPqVTJi9Iw73zmZUTRn33zXcIydmbWjd1Ze3LHJ2hkubjR17MPGDg0m0rjTdvoIF3eaLZThyfiNj15lSZMd7ltqkx3dMHF2puSmbifGJiUOU6vTuPwcvaj7NmyPAfjPcZOe9xYyJ8wdOuZNn"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-medium leading-tight">Pure Haven Fitted Sheet</h3>
+<button class="text-gray-400">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<p class="text-brand-muted text-xs mt-1 uppercase tracking-wider">Size: King | Color: Ivory White</p>
+<p class="text-brand font-semibold mt-2">$125.00</p>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center border border-gray-200 rounded-custom px-2 py-1 gap-4">
+<button class="text-gray-500 hover:text-brand transition-colors">-</button>
+<span class="text-sm font-medium">1</span>
+<button class="text-gray-500 hover:text-brand transition-colors">+</button>
+</div>
+<button class="text-xs text-brand-muted underline">Save for later</button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Cart Items List -->
+<!-- BEGIN: Order Summary -->
+<section class="mt-10 bg-white p-6 rounded-custom shadow-sm border border-gray-50">
+<h3 class="text-xl font-medium mb-4">Order Summary</h3>
+<div class="space-y-3 text-sm">
+<div class="flex justify-between">
+<span class="text-brand-muted">Subtotal</span>
+<span class="font-medium">$624.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-brand-muted">Estimated Shipping</span>
+<span class="font-medium">Calculated at checkout</span>
+</div>
+<div class="flex justify-between">
+<span class="text-brand-muted">Tax</span>
+<span class="font-medium">$0.00</span>
+</div>
+<div class="pt-4 mt-2 border-t border-gray-100 flex justify-between items-center">
+<span class="text-lg font-bold uppercase tracking-tight">Total</span>
+<span class="text-2xl font-bold text-brand">$624.00</span>
+</div>
+</div>
+</section>
+<!-- END: Order Summary -->
+<!-- BEGIN: Promo Code Section -->
+<section class="mt-6">
+<div class="flex gap-2">
+<input class="flex-1 bg-white border border-gray-200 rounded-custom px-4 py-3 text-sm focus:ring-brand focus:border-brand" placeholder="Promo Code" type="text"/>
+<button class="bg-brand-dark text-white px-6 py-3 rounded-custom text-sm font-semibold uppercase tracking-widest hover:bg-black transition-colors">Apply</button>
+</div>
+</section>
+<!-- END: Promo Code Section -->
+<!-- BEGIN: Upsell / Complementary Products -->
+<section class="mt-12">
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-xl font-medium italic">Complete the Look</h3>
+<a class="text-brand text-xs font-bold uppercase tracking-widest" href="#">Shop All</a>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+<!-- Complementary Item 1 -->
+<div class="min-w-[160px] group">
+<div class="aspect-[4/5] bg-gray-100 rounded-custom mb-3 overflow-hidden relative">
+<img alt="Silk Eye Mask" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABFrUqqWrw9oVRgovLqwGbOs1U_iA7RcOXMmMGA6jiiu8SJItGj12BCxvYZYKAkmN4Sg73WYFNxRYHbr6HXJAOmF6WMNW8-xQpPJ1IV4pQMQhpqOEmeMupYvScORTC5oyjh3G0lFDiREeneoNRhp8caBWziiD36c4XEfyO8P0ulrFm7RPaJ4fF0_uX3GVaxErynU-_XkXcx5k3LTRnNQmEA7oR_-cP_zvzOnXNaHK7NQwlhYWB2ztLFiBXXkto9vHumIP17Pu1Lzy1"/>
+<button class="absolute bottom-3 right-3 bg-white/90 p-2 rounded-full shadow-lg">
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<p class="text-sm font-medium">Silk Eye Mask</p>
+<p class="text-brand-muted text-xs">$45.00</p>
+</div>
+<!-- Complementary Item 2 -->
+<div class="min-w-[160px] group">
+<div class="aspect-[4/5] bg-gray-100 rounded-custom mb-3 overflow-hidden relative">
+<img alt="Silk Pillowcase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU3nix1W1Jpmsggoljd-WuzcRZLpJP7_poRnlNJeXgAl5haSTB7rcD-hrlsF0ySZXPpUMfNO9B4iJiZgIGh_pJf9VxD8lggemZE0NdRJOYWlLdI3g-KyqzATPJ1LuSjZ8cAgwmmFg5K3oMEfsopIGunQE_Tri_bbDnRBD8sPLoX8iuW-GCqvlbyz0q-uVndFdc3N3j35q8gwGghb4gTvw49SFaPvjFG17lEp8rhlAZkE5bSq95kvGpWxKBPKMwzyj3RWv6LX2BIK0O"/>
+<button class="absolute bottom-3 right-3 bg-white/90 p-2 rounded-full shadow-lg">
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<p class="text-sm font-medium">Silk Pillowcase Pair</p>
+<p class="text-brand-muted text-xs">$89.00</p>
+</div>
+</div>
+</section>
+<!-- END: Upsell Section -->
+</main>
+<!-- BEGIN: Sticky Bottom Checkout -->
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-5 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+<div class="max-w-md mx-auto">
+<button class="w-full bg-brand py-4 rounded-custom flex items-center justify-center gap-3 text-brand-dark font-bold uppercase tracking-[0.2em] shadow-lg shadow-brand/20 active:scale-[0.98] transition-all">
+        Proceed to Checkout
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<div class="flex justify-center gap-6 mt-4">
+<img alt="Visa" class="h-5 grayscale opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWj-oMQpX_jC0LJ2ERpOSwFLIUpnrb3jEhikg24zQ0uvSc61U2irug4FRWAHWOWYA3N8Gx82jOBkvJxbXBLtudWJNoHUihuKcOHSBCtxIqM2s33tJdqE_-2rcekiCLvXdiSoMvf4H8uycbUWV2VtzwuGNkAHQQrO4BtZw2ZDIJJVXYD1FJozzImdxbj4MA5zGg-IEgcaFlzBhF4RZQugWfRyyNeD1zSpBDZtDABC6fqwZLr5-1XxGwOPrGCpUnG-Gh7gN8rGfBJu1T"/>
+<img alt="Mastercard" class="h-5 grayscale opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjt2YFdRxOP9AUcD9JQr--zbA-GumIfRUB-HBTWDo2Ai-ZQweq-0Ni3fUI4SdDc3MZOEdwRXtS3FHNEFSbRjR4NX-w0shW8WoeL-mzKruqBbht7j3UdNedBwrdI1Mp_2xisqUOx1KhqmZqEJ6Mo3w4TcLlU4PG7BDQ5LsBl-8_T1f2qMyGdbAuQFQFw4gZy38l5w9maj-jg8KQJ2xrg7haBKWK53a38-ciSjC_70LzH9JVau5nHtplr9a2XC_DacJH6b19cTpWHuFs"/>
+<img alt="Amex" class="h-5 grayscale opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0jQ-Mv1m1qhoQAyze50LHQiQyLh8XqaWg3iMqx0xEU6rElzrZQNZ2pFOosS33cl00TUnwaP7sLfg0JbutrgxpVUFsDb9EMZgb9ya4pa69kPcjowbrpRXEe7RmwToa_k_UN6vI9baNZavEyfahvt3KH-RL27MNrvlaa-VgF2VT8Hht089Bq8c_vM9YER0rl7vulL0T-92Bjpum41eV5w7Jjso44YBWdjuYHZWida3MPWiy6jgMYZCgvJc3HFitt2oZnThp75yirYkg"/>
+<img alt="Apple Pay" class="h-5 grayscale opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY4Jrl-N-yDSx7hj_NhlFaMiw_bKEmxK0ja4KHCocXMSk6JadY7w711pK5bxuVSvldgyVVRl7C-EATU3tsO_h4p71Z454UEAos__SOnAaTVaUJghKXJfKOoCK1q1gUjBPHdHyaDrwwiJ1O6C2dMlFnDgfmetPghIUNFkB5zcoJPLSReZSDIKSgXgAr8LS6-S5NR4Qm-bz2b2PN0y19rpunlZDXo5XuD3RBo0BVTk7T5FOQBVV7lWkgARWyPhraPhgnhTYwl0dNGi7e"/>
+</div>
+</div>
+</div>
+<!-- END: Sticky Bottom Checkout -->
+</body></html>
