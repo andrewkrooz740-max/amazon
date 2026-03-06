@@ -5,7 +5,7 @@ A premium home textiles e-commerce platform built with Django 5, featuring luxur
 ## Features
 
 - **Product Catalog**: Browse products by category with filtering and search
-- **Shopping Cat**: Session-based cart with add/remove/update functionality
+- **Shopping Cart**: Session-based cart with add/remove/update functionality
 - **Checkout**: Complete order flow with shipping information
 - **User Accounts**: Registration, login, profile management, order history
 - **Newsletter**: Email subscription system
