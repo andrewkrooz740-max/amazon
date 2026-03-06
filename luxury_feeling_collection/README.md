@@ -14,7 +14,7 @@ A premium home textiles e-commerce platform built with Django 5, featuring luxur
 
 ## Tech Stack
 
-- Python 3.12+
+- Python 3.12+f
 - Django 5.0
 - SQLite (default) / PostgreSQL ready
 - Tailwind CSS (CDN)
