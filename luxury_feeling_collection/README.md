@@ -22,7 +22,7 @@ A premium home textiles e-commerce platform built with Django 5, featuring luxur
 
 ## Quick Start
 
-### 1. Clone and Setup Virtual Environment
+### 1. Clone and Setup Virtual Environment,,,,
 
 ```bash
 cd luxury_feeling_collection
