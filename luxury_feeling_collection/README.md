@@ -10,7 +10,7 @@ A premium home textiles e-commerce platform built with Django 5, featuring luxur
 - **User Accounts**: Registration, login, profile management, order history
 - **Newsletter**: Email subscription system
 - **Admin Panel**: Full Django admin for managing products, orders, and users
-- **Responsive Design**: Mobile-first design with Tailwind CSS
+- **Responsive Design**: Mobile-first design with Tailwind CSS...
 
 ## Tech Stack
 
